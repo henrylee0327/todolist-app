@@ -1,0 +1,12 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "lists of lists",
+  "main": "app.js",
+  "author": "Henry Lee <djteski@gmail.com>",
+  "dependencies": {
+    "express": "4.17.1",
+    "knex": "0.21.1",
+    "pg": "8.1.0"
+  }
+}
