@@ -6,7 +6,14 @@
   "author": "Henry Lee <djteski@gmail.com>",
   "dependencies": {
     "express": "4.17.1",
+    "hbs": "4.1.1",
     "knex": "0.21.1",
     "pg": "8.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.3"
+  },
+  "scripts": {
+    "start-dev": "nodemon app.js"
   }
 }
