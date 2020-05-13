@@ -1,4 +1,6 @@
 const express = require('express')
+const db = require('./lib/db')
+
 const app = express()
 
 // serve files out of the public directory
@@ -35,15 +37,34 @@ const dummyItems = [
 
 //The homepage shows your todolist
 app.get('/', function (req, res) {
-    res.render('index', {lists: dummyLists})
+    db.getLists()
+        .then((lists) => {
+            res.render('index', {lists: lists})
+        })
+        .catch(() => {
+            // TODO show an error page here
+        })
   })
 
 //The list page shows the items in the List
 app.get('/list/:listUUID', function (req, res) {
-    res.render('list_page', {listName: 'dummy list', items: dummyItems})
+    res.render('list_page', {listName: 'items', items: dummyItems})
 })
 
-app.listen(port, () => {
-    console.log('listening port: ' + port)
-})
+const startExpressApp = () => {
+    app.listen(port, () => {
+        console.log('listening port: ' + port)
+    })    
+}
 
+const bootupSequenceFailed = (err) => {
+    console.error('unable to connect to database: ', err)
+        console.error('Good Bye!')
+        process.exit(1)
+}
+
+// global kickoff point
+db.connect()
+    // .then(startExpressApp)
+    .then(startExpressApp)
+    .catch(bootupSequenceFailed)
