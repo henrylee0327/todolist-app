@@ -93,6 +93,14 @@ app.post('/list/:listUUID/new-item', function (req, res) {
 
 })
 
+app.delete('/list/:listUUID', (req, res) => {
+    const theList = req.todolist.list_items
+    const deleteDescription = req.body.description
+
+    console.log(req);
+
+
+});
 
 const startExpressApp = () => {
     app.listen(port, () => {
