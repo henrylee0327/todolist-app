@@ -93,13 +93,18 @@ app.post('/list/:listUUID/new-item', function (req, res) {
 
 })
 
-app.delete('/list/:listUUID', (req, res) => {
+app.delete('/listitem/:itemUUID', (req, res) => {
     const theList = req.todolist.list_items
-    const deleteDescription = req.body.description
+    const requestUUID = req.params.itemUUID
 
-    console.log(req);
-
-
+    db.deleteItem(theList.uuid, requestUUID)
+    .then((deleteItem) => {
+        res.render('item_deleted', {
+            listUUID: theList.uuid,
+            listName: req.todolist.list.name,
+            description: deleteItem.description
+        })
+        })
 });
 
 const startExpressApp = () => {
